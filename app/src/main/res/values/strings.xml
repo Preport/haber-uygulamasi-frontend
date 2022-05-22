@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">HaberUygulamasi</string>
+    <string name="email">e-posta</string>
+    <string name="sifre">Şifre</string>
+    <string name="anonimOlarakDevamEt"><u>Anonim olarak devam et</u></string>
+    <string name="giris">Giriş</string>
+    <string name="hesabinizYokMu">Hesabınız yok mu?</string>
+    <string name="kayitOlun">\ <u>Kayıt Olun</u></string>
+    <string name="girisYap">Giriş yap</string>
+    <!-- Giris -->
+    <string name="yeniHesapOlustur">Yeni Hesap Oluştur</string>
+    <string name="ZatenKayitliMisiniz">Zaten kayıtlı mısınız?</string>
+    <string name="girisYapın">\ <u>Giriş yapın</u></string>
+    <string name="kullaniciAdi">Kullanıcı Adı</string>
+    <string name="kayitOl">Kayıt Ol</string>
+    <string name="bildirimler">Bildirimler</string>
+    <string name="anasayfa">Anasayfa</string>
+    <string name="ayarlar">Ayarlar</string>
+</resources>

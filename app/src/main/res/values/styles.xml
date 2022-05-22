@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">5px</item>
+        <item name="android:background">@drawable/gradient_background</item>
+    </style>
+
+    <style name="GrayDivider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">3px</item>
+        <item name="android:background">@drawable/gradient_gray</item>
+    </style>
+</resources>
