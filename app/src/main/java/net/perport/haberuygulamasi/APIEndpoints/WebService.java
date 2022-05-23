@@ -50,7 +50,7 @@ public interface WebService {
     Call<Responses.PostCommentResponse> createComment(@Header("Authorization") String accessToken, @Body() createCommentDTO comment);
 
     @GET("bildirim/")
-    Call<Responses.GetNotificationsResponse> getNotifications(@Header("Authorization") String accessToken, long since);
+    Call<Responses.GetNotificationsResponse> getNotifications(@Header("Authorization") String accessToken, @Query("notify") boolean notify);
 
     @DELETE("bildirim/{id}")
     Call<Responses.BaseResponse> deleteNotification(@Header("Authorization") String accessToken, @Path("id") String notificationID);

@@ -46,14 +46,11 @@ public class NotificationService extends Service {
             manager.refreshAccessTokenIfNecessary();
 
             if(manager.accessTokenIsValid()) {
-                SharedPreferences pref = getSharedPreferences("default", Context.MODE_PRIVATE);
-                long time = pref.getLong(PREFERENCES.lastNotificationTime.name(), 0);
-                Call<Responses.GetNotificationsResponse> call = MainActivity.API.getNotifications(manager.getAccessToken(), time);
+                Call<Responses.GetNotificationsResponse> call = MainActivity.API.getNotifications(manager.getAccessToken(), true);
 
                 try{
                     Response<Responses.GetNotificationsResponse> res = call.execute();
                     if(res.isSuccessful()){
-                        pref.edit().putFloat(PREFERENCES.lastNotificationTime.name(), res.body().body.time).apply();
 
                         for(Notification notification: res.body().body.items){
                             this.createNotification(
