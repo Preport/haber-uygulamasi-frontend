@@ -58,7 +58,7 @@ public class TokenManager {
         WrappedRequest<Responses.RefreshTokenResponse> Wrap = new WrappedRequest<>(data -> {
             Log.d("br","BRUH");
             setAccessToken(data.body.access_token);
-        },null);
+        },()-> alreadyRefreshingAccessToken = false,null);
 
         Wrap.Catch(err ->{
             if(err.statusCode == 401) {
@@ -68,6 +68,7 @@ public class TokenManager {
             }
             else refreshAccessToken();
         });
+
         res.enqueue(Wrap);
     }
     public void setAccessToken(String accessToken){
@@ -85,7 +86,9 @@ public class TokenManager {
         if( currentTime + fiveMinutes > this.accessTokenPayload.exp * 1000L){
             refreshAccessToken();
         } else {
-            new Handler().postDelayed(this::refreshAccessToken, this.accessTokenPayload.exp * 1000L - new Date().getTime() - fiveMinutes);
+            long time = this.accessTokenPayload.exp * 1000L - new Date().getTime() - fiveMinutes;
+            Log.d("KeyTime", ""+time);
+            new Handler().postDelayed(this::refreshAccessToken, time);
         }
     }
 

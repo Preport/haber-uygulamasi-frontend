@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.IBinder;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
@@ -14,6 +15,7 @@ import androidx.core.app.NotificationManagerCompat;
 import net.perport.haberuygulamasi.APIEndpoints.Models.Notification;
 import net.perport.haberuygulamasi.APIEndpoints.Responses;
 import net.perport.haberuygulamasi.APIEndpoints.Tokens.TokenManager;
+import net.perport.haberuygulamasi.APIEndpoints.WrappedRequest;
 import net.perport.haberuygulamasi.MainActivity;
 import net.perport.haberuygulamasi.NOTIFICATION;
 import net.perport.haberuygulamasi.PREFERENCES;
@@ -36,6 +38,7 @@ public class NotificationService extends Service {
         super.onStartCommand(intent, flags, startId);
         get=this;
         loop();
+        Log.d("BackgroundNotification",".");
         return START_STICKY;
     }
 
@@ -44,23 +47,22 @@ public class NotificationService extends Service {
         new Handler().postDelayed(()->{
             TokenManager manager = TokenManager.get();
             manager.refreshAccessTokenIfNecessary();
-
+            Log.d("BackgroundNotification", "Check");
             if(manager.accessTokenIsValid()) {
                 Call<Responses.GetNotificationsResponse> call = MainActivity.API.getNotifications(manager.getAccessToken(), true);
 
-                try{
-                    Response<Responses.GetNotificationsResponse> res = call.execute();
-                    if(res.isSuccessful()){
 
-                        for(Notification notification: res.body().body.items){
+                call.enqueue(new WrappedRequest<Responses.GetNotificationsResponse>(data ->{
+                    Log.d("BackgroundNotification", ""+data.body.items.size());
+                        for(Notification notification: data.body.items){
+                            Log.d("BackgroundNotification","Notif");
                             this.createNotification(
-                                    notification.bildirimTipi == NOTIFICATION.HABER ?
+                                    notification.bildirimTipi == NOTIFICATION.YORUM ?
                                             notification.hedef : notification.hedef + " yorumunuza cevap verdi",
                                     notification.icerik
                             );
                         }
-                    }
-                }catch (Exception ignored){}
+                        },null).Catch(err -> Log.d("BackgroundNotification", err.toString())));
             }
 
             loop();
@@ -69,7 +71,7 @@ public class NotificationService extends Service {
 
     private int counter = 0;
     public void createNotification(String title, String content){
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "notifications")
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "net.perport.haber")
                 .setSmallIcon(R.drawable.ic_notification)
                 .setContentTitle(title)
                 .setContentText(content)

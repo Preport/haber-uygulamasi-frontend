@@ -53,7 +53,7 @@ public class NotificationsFragment extends Fragment {
         if(notifications.size() == 0)return;
         AsyncLayoutInflater inf = new AsyncLayoutInflater(getContext());
         for(Notification not:notifications){
-            inf.inflate(R.layout.item_comment, container, (View view, int resid, ViewGroup parent)->{
+            inf.inflate(R.layout.item_notification, container, (View view, int resid, ViewGroup parent)->{
                 not.setViewData(view);
                 container.addView(view);
             });

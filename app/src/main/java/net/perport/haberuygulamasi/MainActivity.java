@@ -1,9 +1,12 @@
 package net.perport.haberuygulamasi;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.icu.text.SimpleDateFormat;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -14,8 +17,10 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import net.perport.haberuygulamasi.APIEndpoints.Models.Notification;
 import net.perport.haberuygulamasi.APIEndpoints.Tokens.TokenManager;
 import net.perport.haberuygulamasi.APIEndpoints.WebService;
+import net.perport.haberuygulamasi.BackgroundTasks.NotificationService;
 import net.perport.haberuygulamasi.Login.LoginActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -40,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        //Bildirim kanalını oluştur
+        createNotificationChannel();
         SharedPreferences preferences = getSharedPreferences("default",Context.MODE_PRIVATE);
         setContentView(R.layout.main_activity);
 
@@ -65,7 +72,18 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
         };
+        startService(new Intent(getApplicationContext(), NotificationService.class));
 
+    }
+
+    private void createNotificationChannel(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            NotificationChannel ch =
+                    new NotificationChannel("net.perport.haber", "HaberUygulamasi", NotificationManager.IMPORTANCE_DEFAULT);
+            ch.setDescription("Yorum ve Haber Bildirim Kanalı");
+            getSystemService(NotificationManager.class).createNotificationChannel(ch);
+
+        }
     }
 
 }
