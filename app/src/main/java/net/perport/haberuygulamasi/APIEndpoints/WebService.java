@@ -1,6 +1,7 @@
 package net.perport.haberuygulamasi.APIEndpoints;
 
 import net.perport.haberuygulamasi.APIEndpoints.DTOs.createCommentDTO;
+import net.perport.haberuygulamasi.APIEndpoints.DTOs.updateUserDTO;
 import net.perport.haberuygulamasi.APIEndpoints.DTOs.createUserDTO;
 import net.perport.haberuygulamasi.APIEndpoints.DTOs.loginDTO;
 import net.perport.haberuygulamasi.APIEndpoints.Responses;
@@ -10,6 +11,7 @@ import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -24,6 +26,12 @@ public interface WebService {
 
     @POST("kullanici/")
     Call<Responses.PostAccountResponse> createAccount(@Body() createUserDTO user);
+
+    @GET("kullanici/")
+    Call<Responses.GetCurrentAccountResponse> getCurrentAccount(@Header("Authorization") String refreshToken);
+
+    @PATCH("kullanici/{id}")
+    Call<Responses.PatchAccountResponse> updateAccount(@Header("Authorization") String refreshToken, @Path("id") String id, @Body() updateUserDTO user);
 
     @GET("haber")
     Call<Responses.GetHaberResponse> getHaber(@Query("before") String before, @Query("after") String after,@Query("count") int count);
@@ -54,5 +62,6 @@ public interface WebService {
 
     @DELETE("bildirim/{id}")
     Call<Responses.BaseResponse> deleteNotification(@Header("Authorization") String accessToken, @Path("id") String notificationID);
+
 }
 

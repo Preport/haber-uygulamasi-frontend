@@ -1,7 +1,7 @@
 package net.perport.haberuygulamasi.APIEndpoints.Tokens;
 
 public class AccessToken extends BaseToken{
-    String sub;
-    String username;
-    boolean isModerator;
+    public String sub;
+    public String username;
+    public boolean isModerator;
 }

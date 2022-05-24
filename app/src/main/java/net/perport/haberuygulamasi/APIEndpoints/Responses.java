@@ -77,4 +77,17 @@ public class Responses {
             public List<Notification> items;
         }
     }
+
+    public class GetCurrentAccountResponse extends BaseResponse {
+        public Body body;
+        public class Body {
+            public String kullaniciAdi;
+            public int kategoriSecimleri;
+            public List<String> kategoriler;
+        }
+    }
+
+    public class PatchAccountResponse extends BaseResponse {
+        public String body;
+    }
 }

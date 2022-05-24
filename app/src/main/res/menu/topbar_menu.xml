@@ -12,6 +12,6 @@
         android:id="@+id/app_bar_createAnArticle"
         android:icon="@drawable/ic_add_white"
         android:title="Haber Oluştur"
-        android:visible="true"
+        android:visible="false"
         app:showAsAction="always" />
 </menu>
