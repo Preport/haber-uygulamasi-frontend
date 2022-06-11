@@ -22,4 +22,4 @@ Kodun bazı yerleri Türkçe-İngilizce karışımı nedenini sormayın yazarken
 
 ## Yapılması gerekenler
 
-Kodu örnek olarak kullanmak istiyorsanız [main.ts](https://github.com/Preport/haber-uygulamasi-frontend/blob/master/app/src/main/java/net/perport/haberuygulamasi/MainActivity.java#L33) dosyasındaki 33. satırdaki `baseUrl` değişkenini düzenleyin.
+Kodu örnek olarak kullanmak istiyorsanız [MainActivity.java](https://github.com/Preport/haber-uygulamasi-frontend/blob/master/app/src/main/java/net/perport/haberuygulamasi/MainActivity.java#L33) dosyasındaki 33. satırdaki `baseUrl` değişkenini düzenleyin.
